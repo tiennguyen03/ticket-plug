@@ -3,7 +3,7 @@ import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material'
 
 function Navbar(){
     return(
-        <AppBar sx={{bgcolor: "black" }} position="static">
+        <AppBar sx={{bgcolor: "secondary.main" }} position="static">
             <Toolbar>
                 <Typography
                 variant="h6"
@@ -19,7 +19,7 @@ function Navbar(){
                     gap: 2,
                     '& .MuiButton-root': {  // Targets all MUI Buttons
                       '&:hover': {
-                        bgcolor: 'rgba(255, 0, 0, 1)',
+                        bgcolor: 'primary.main',
                       },
                       borderRadius: 2,
                       px: 2,

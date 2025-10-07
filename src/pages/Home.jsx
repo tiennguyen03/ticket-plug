@@ -1,10 +1,14 @@
 import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import Box from '@mui/material/Box'
+import { Container, Typography } from '@mui/material'
 
 function Home() {
   return (
     <> 
-        <h1>Ticket Plug - Homepage</h1>
+      <Container>
+        <Typography variant="h1">Welcome to Ticket Plug</Typography>
+      </Container>
     </>
   )
 }

@@ -3,7 +3,6 @@
 function Orders() {
   return (
     <> 
-        <h1>Ticket Plug - Orders</h1>
     </>
   )
 }

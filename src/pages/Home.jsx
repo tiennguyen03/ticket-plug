@@ -8,7 +8,8 @@ function Home() {
     dateTime: '',
     theater: '',
     platform: '',
-    email: ''
+    email: '',
+    seat: ''
   })
 
   const handleChange = (e) => {
@@ -18,10 +19,35 @@ function Home() {
     })
   }
   
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log('Form submitted', formData)
-    // Connect to database later
+
+    // The URL of the FastAPI endpoint you just created
+    const API_ENDPOINT = 'http://127.0.0.1:8000/ticket-request';
+
+    try {
+      const response = await fetch(API_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        // Convert the React state object into a JSON string
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log('Success from server:', result);
+      alert('Your ticket request was submitted successfully!');
+      // Optionally, you could clear the form here
+      
+    } catch (error) {
+      console.error('There was an error submitting the form:', error);
+      alert('Failed to submit your request. Please check the console for details.');
+    }
   }
 
   const platforms = ['AMC', 'Regal']
@@ -52,7 +78,7 @@ function Home() {
         >
           <TextField
             fullWidth
-            label=" Movie Name"
+            label="Movie Name"
             name="movieName"
             value={formData.movieName}
             onChange={handleChange}
@@ -75,16 +101,6 @@ function Home() {
 
           <TextField
             fullWidth
-            label="Theater Location"
-            name="theater"
-            value={formData.theater}
-            onChange={handleChange}
-            required
-            placeholder="e.g., AMC Empire 25, New York"
-          />
-
-          <TextField
-            fullWidth
             select
             label="Platform"
             name="platform"
@@ -98,6 +114,26 @@ function Home() {
               </MenuItem>
             ))}
           </TextField>
+
+          <TextField
+            fullWidth
+            label="Theater Location"
+            name="theater"
+            value={formData.theater}
+            onChange={handleChange}
+            required
+            placeholder="e.g., AMC Empire 25, New York"
+          />
+
+          <TextField
+            fullWidth
+            label="Prefered Seat (Optional)"
+            name="seat"
+            value={formData.seat}
+            onChange={handleChange}
+            placeholder="e.g., J14, J15"
+            helperText="Please check the official platform's website and enter a available seat. We will try our best to accommodate you."
+          />
 
           <TextField
             fullWidth
